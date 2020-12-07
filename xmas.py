@@ -71,41 +71,45 @@ while True:
 	transition_time = 0
 
 	#time for full loop in ms
-	loop_time = 1400
+	loop_time = 10000
 
 	# x intercepts for sawtooth heartbeat
 	x0 = 0
-	x1 = 300
-	x2 = 500
-	x3 = 700
+	x1 = loop_time * (1/4)
+	x2 = loop_time * (2/4)
+	x3 = loop_time * (3/4)
 	x4 = loop_time
 
 	# y intercepts for sawtooth heartbeat
-	peak_brightness = 180
+	peak_brightness = 255
 	interim_brightness = 50
 	end_brightness = 20
+
+	#color constants
+	green = 21845
+	red = 0
 
 	for x in range(0,loop_time):
 		if x == x0:
 			brightness = peak_brightness
 			transition_time = (x1-x0)/100
 			#print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
-			update_hue(53000, brightness, transition_time)
+			update_hue(green, brightness, transition_time)
 		elif x == x1:
 			brightness = interim_brightness
 			transition_time = (x2-x1)/100
 			#print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
-			update_hue(0, brightness, transition_time)
+			update_hue(red, brightness, transition_time)
 		elif x == x2:
 			brightness = peak_brightness
 			transition_time = (x3-x2)/100
 			#print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
-			update_hue(53000, brightness, transition_time)
+			update_hue(red, brightness, transition_time)
 		elif x == x3:
 			brightness = end_brightness
 			transition_time = (x4-x3)/100
 			#print("x: {} brightness: {} transition: {}".format(x, brightness, transition_time))
-			update_hue(0, brightness, transition_time)
+			update_hue(green, brightness, transition_time)
 
 		if x % 10 == 0:
 			time.sleep(0.01)
